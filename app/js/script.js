@@ -56,5 +56,6 @@ function handleInput() {
   document.querySelector('body').style.color = checked ? '#fffff7' : '#002';
   document.querySelector('h1').style.color = checked ? '#fffff7' : 'rgba(27, 27, 26, 0.8)';
   document.querySelector('p').style.color = checked ? '#fffff7' : '#002';
+  
 }
 input.addEventListener('input', handleInput);
