@@ -49,13 +49,42 @@ document.addEventListener('DOMContentLoaded', function () {
 //прокрутка вгору ^^^^
 
 // change the background of the page according to the value of the checkbox
-const input = document.querySelector('input[type="checkbox"]');
-function handleInput() {
-  const { checked } = this;
-  document.querySelector('body').style.background = checked ? '#151d29' : '#fffff7';
-  document.querySelector('body').style.color = checked ? '#fffff7' : '#002';
-  document.querySelector('h1').style.color = checked ? '#fffff7' : 'rgba(27, 27, 26, 0.8)';
-  document.querySelector('p').style.color = checked ? '#fffff7' : '#002';
+// const input = document.querySelector('input[type="checkbox"]');
+// function handleInput() {
+//   const { checked } = this;
+//   document.querySelector('body').style.background = checked ? '#151d29' : '#fffff7';
+//   document.querySelector('body').style.color = checked ? '#fffff7' : '#002';
+// //   document.querySelector('h1').style.color = checked ? '#fffff7' : 'rgba(27, 27, 26, 0.8)';
+// //   document.querySelector('p').style.color = checked ? '#fffff7' : '#002';
   
+// }
+// input.addEventListener('input', handleInput);
+var btn = document.getElementById("theme-button");
+var link = document.getElementById("theme-link");
+
+btn.addEventListener("click", function () { ChangeTheme(); });
+
+function ChangeTheme()
+{
+    let lightTheme = "css/style.css";
+    let darkTheme = "css/dark.css";
+
+    var currTheme = link.getAttribute("href");
+    var theme = "";
+
+    if(currTheme == lightTheme)
+    {
+   	 currTheme = darkTheme;
+   	 theme = "style";
+    }
+    else
+    {    
+   	 currTheme = lightTheme;
+   	 theme = "dark";
+    }
+
+    link.setAttribute("href", currTheme);
+
+    Save(theme);
 }
-input.addEventListener('input', handleInput);
+

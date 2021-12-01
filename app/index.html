@@ -30,7 +30,8 @@
     <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css" />
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css" >
+    <link rel="stylesheet" href="css/dark.css" id="theme-link">
 </head>
 <body>
     <!--HEADER-->
@@ -62,7 +63,7 @@
                 </ul>
             </nav>
             <!--Світла темна -->
-            <label for="toggle">
+            <label for="toggle" id="theme-button">
                 <input type="checkbox" />
             
                 <svg viewBox="0 0 100 45" width="400" height="180">
@@ -234,8 +235,8 @@
                 приблизно до 45 років. І по-друге, манга дуже рідко малюється в кольорі, вона - чорно-біла.
             </p>
             <br>
-            <div class="manga container">
-                <img src="img/example_manga.png" alt="example_manga">
+            <div class="manga container scale">
+                <img src="img/example_manga.png" alt="example_manga" class="scale">
                 <figcaption>Приклад сторінки з манги "Астробой"</figcaption>
             </div>
             <br>

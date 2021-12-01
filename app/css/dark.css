@@ -46,7 +46,7 @@ body{
     /* display: inline-block; */
     margin: 0;
     line-height: 1;
-    color: rgba(27, 27, 26, 0.8);
+    color: rgba(255, 255, 237, 0.8);
     letter-spacing: 10px;
     font-size: 70px;
     padding: .7em 1em .85em;
@@ -55,14 +55,14 @@ body{
     text-align: right;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    color: #002;
+    color: #fffff7;
 }
 .p1{
     text-align: right;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-style: italic;
-    color: #002;
+    color: #fffff7;
 }    
 .four {
     padding: 50px 20px;
@@ -258,8 +258,8 @@ a:active{
 }
 
 :root {
-  --main-bg: #fffff7;
-  --text-color: #002;
+  --main-bg: #002;
+  --text-color: #fffff7;
   --header: linear-gradient(180deg, rgba(98, 20, 2, 0.31) 0%, var(--main-bg) 85.62%), url(../img/all.png) no-repeat center top / cover;
 }
 label {

@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="css/normalize.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/style.css" id="theme-link">
+    <link rel="stylesheet" href="../css/dark.css" id="theme-link">
 </head>
 <body>
     <!--HEADER-->
@@ -42,6 +43,138 @@
                     </li>
                 </ul>
             </nav>
+            <!--Світла темна -->
+            <label for="toggle" id="theme-button">
+                <input type="checkbox" />
+            
+                <svg viewBox="0 0 100 45" width="400" height="180">
+                    <defs>
+                        <!-- rectangle used for the background and re-used in the clip and mask elements -->
+                        <rect id="background" x="0" y="0" width="90" height="40" rx="20"></rect>
+            
+                        <!-- clip cutting out the elements exceeding the rounded rectangle -->
+                        <clipPath id="clip">
+                            <use href="#background"></use>
+                        </clipPath>
+            
+                        <!-- for the light variant -->
+                        <!-- gradient used for the background -->
+                        <linearGradient id="gradient-light" x1="0" x2="0" y1="0" y2="1">
+                            <stop stop-color="#8bc8f2" offset="0"></stop>
+                            <stop stop-color="#fff" offset="1"></stop>
+                        </linearGradient>
+            
+                        <!-- filter applied to (a copy of) the sun to blur the edges -->
+                        <filter id="blur-light">
+                            <feGaussianBlur stdDeviation="1"></feGaussianBlur>
+                        </filter>
+            
+                        <!-- pattern for the waves -->
+                        <pattern id="pattern-light" width="0.1" height="1" viewBox="0 0 10 45">
+                            <path fill="#40b5f8" d="M 0 0 a 6 6 0 0 0 10 0 v 45 h -10 z"></path>
+                        </pattern>
+            
+            
+                        <!-- for the dark variant -->
+                        <!-- gradient used for the background -->
+                        <linearGradient id="gradient-dark" x1="0" x2="0" y1="0" y2="1">
+                            <stop stop-color="#1F2241" offset="0"></stop>
+                            <stop stop-color="#7D59DF" offset="1"></stop>
+                        </linearGradient>
+            
+                        <!-- gradient used for the the mask
+                                    the idea is to have the mask use the [#000-#fff] gradient to progressively hide the shapes as they approach the bottom
+                                -->
+                        <linearGradient id="gradient-mask" x1="0" x2="0" y1="0" y2="1">
+                            <stop stop-color="#000" offset="0"></stop>
+                            <stop stop-color="#fff" offset="1"></stop>
+                        </linearGradient>
+            
+                        <!-- mask to conceal the stars at the bottom of the toggle -->
+                        <mask id="mask-dark">
+                            <use fill="url(#gradient-mask)" href="#background"></use>
+                        </mask>
+            
+                        <!-- gradients for the moon and craters -->
+                        <radialGradient id="gradient-moon">
+                            <stop stop-color="#fdfdfd" offset="0.7"></stop>
+                            <stop stop-color="#e2e2e2" offset="1"></stop>
+                        </radialGradient>
+            
+                        <radialGradient id="gradient-crater">
+                            <stop stop-color="#e0e0e0" offset="0"></stop>
+                            <stop stop-color="#d9d9d9" offset="1"></stop>
+                        </radialGradient>
+            
+                        <!-- pattern for the stars -->
+                        <pattern id="pattern-dark" width="0.2" height="1" viewBox="0 0 20 45">
+                            <path fill="#fff" d="M 2 5 l 1 1 l -1 1 l -1 -1 l 1 -1"></path>
+                            <path fill="#fff" d="M 10 16 l 1 1 l -1 1 l -1 -1 l 1 -1"></path>
+                            <path fill="#fff" d="M 16 27 l 1 1 l -1 1 l -1 -1 l 1 -1"></path>
+                            <path fill="#fff" d="M 10 38 l 1 1 l -1 1 l -1 -1 l 1 -1"></path>
+                        </pattern>
+                    </defs>
+            
+                    <!-- actual graphics
+                                the idea is to include the elements for the light variant on top of the dark counterpart and change the opacity when the input is toggled
+                                ! beside changing the opacity of the .light elements the transition also affects the position of the sun/moon and of the patterns
+                            -->
+                    <g transform="translate(5 2.5)">
+                        <g clip-path="url(#clip)">
+                            <g class="dark">
+                                <use fill="url(#gradient-dark)" href="#background"></use>
+                                <!-- translate the stars above the toggle
+                                        ! the change in y scale allows to transition the stars with a faster pace (see the CSS)
+                                        -->
+                                <g class="background" transform="translate(0 -40) scale(1 0.4)">
+                                    <rect transform="translate(-40 0) rotate(4)" fill="url(#pattern-dark)" x="0" y="0" width="100"
+                                        height="45"></rect>
+                                </g>
+                                <use mask="url(#mask-dark)" fill="url(#gradient-dark)" href="#background"></use>
+                            </g>
+                            <g class="light">
+                                <use fill="url(#gradient-light)" href="#background"></use>
+                                <!-- translate the waves above the toggle and reset their position with an opposite translation
+                                        by translating the first group to 0 (alongside the stars) the waves are pushed below
+                                        -->
+                                <g class="background" transform="translate(-30 -20)">
+                                    <g transform="translate(30 20)">
+                                        <rect fill="url(#pattern-light)" x="-5" y="27.5" width="100" height="45"></rect>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+            
+                    <g transform="translate(77.5 22.5)">
+                        <!-- translate this group to move the sun/moon to the right -->
+                        <g class="translate" transform="translate(-55)">
+                            <!-- rotate this group to rotate the moon -->
+                            <g class="rotate" transform="rotate(-100)">
+                                <g class="dark">
+                                    <circle fill="url(#gradient-moon)" cx="0" cy="0" r="20.5"></circle>
+                                    <g transform="translate(-8 -7.5)">
+                                        <ellipse transform="rotate(-30)" fill="url(#gradient-crater)" stroke="#d5d5d5"
+                                            stroke-width="0.2" cx="0" cy="0" rx="4" ry="3"></ellipse>
+                                    </g>
+                                    <g transform="translate(11 5)">
+                                        <ellipse fill="url(#gradient-crater)" stroke="#d5d5d5" stroke-width="0.2" cx="0" cy="0"
+                                            rx="3.85" ry="4"></ellipse>
+                                    </g>
+                                    <g transform="translate(-6 12)">
+                                        <ellipse transform="rotate(-10)" fill="url(#gradient-crater)" stroke="#d5d5d5"
+                                            stroke-width="0.2" cx="0" cy="0" rx="2" ry="1.75"></ellipse>
+                                    </g>
+                                </g>
+                            </g>
+                            <g class="light">
+                                <circle fill="#FFD21F" cx="0" cy="0" r="21" filter="url(#blur-light)"></circle>
+                                <circle fill="#FFD21F" cx="0" cy="0" r="20.5"></circle>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                <!--Світла темна -->
         </div>
         <div class="name container">
             <h1>All about anime</h1>
@@ -81,8 +214,8 @@
                 <b><i>IMDb:</i></b> 8.6
             </div>
             
-            <div class="manga">
-                <img src="../img/ghosts.jpg" alt="Віднесені привидами">
+            <div class="manga scale">
+                <img src="../img/ghosts.jpg" alt="Віднесені привидами" class="scale">
                 <figcaption>Кадр з аніме-фільму</figcaption>
             </div>
             <p>
@@ -128,8 +261,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 7.7
             </div>
-            <div class="manga">
-                <img src="../img/student.jpg" alt="Учень чудовиська">
+            <div class="manga scale">
+                <img src="../img/student.jpg" alt="Учень чудовиська" class="scale">
                 <figcaption>Кадр з аніме-фільму</figcaption>
             </div>
             <p>
@@ -180,8 +313,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 7.6
             </div>
-            <div class="manga">
-                <img src="../img/fivesecond.jpg" alt="5 сантеметрів в секунду">
+            <div class="manga scale">
+                <img src="../img/fivesecond.jpg" alt="5 сантеметрів в секунду" class="scale">
                 <figcaption>Кадр з аніме-фільму</figcaption>
             </div>
             <p>
@@ -224,8 +357,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.4
             </div>
-            <div class="manga">
-                <img src="../img/yourname.jpg" alt="your_name">
+            <div class="manga scale">
+                <img src="../img/yourname.jpg" alt="your_name" class="scale">
             </div>
             <p>
                 Це барвисте аніме з елементами драми і мелодрами розповідає заплутану історію про дивний зв'язок, любові і обмін
@@ -276,8 +409,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.0
             </div>
-            <div class="manga">
-                <img src="../img/lapyta.jpg" alt="Небесний замок Лапута">
+            <div class="manga scale">
+                <img src="../img/lapyta.jpg" alt="Небесний замок Лапута" class="scale"> 
                 <figcaption>Кадр з аніме-фільму</figcaption>
             </div>
             <p>
@@ -322,8 +455,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 7.7
             </div>
-            <div class="manga">
-                <img src="../img/time.jpg" alt="Дівчинка, що підкорила час">
+            <div class="manga scale">
+                <img src="../img/time.jpg" alt="Дівчинка, що підкорила час" class="scale">
                 <figcaption>Кадр з аніме-фільму</figcaption>
             </div>
             <p>
@@ -369,8 +502,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.1
             </div>
-            <div class="manga">
-                <img src="../img/navsikaj.jpg" alt="Навсікая">
+            <div class="manga scale">
+                <img src="../img/navsikaj.jpg" alt="Навсікая" class="scale">
                 <figcaption>Кадр з аніме-фільму</figcaption>
             </div>
             <p>
@@ -415,8 +548,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.0
             </div>
-            <div class="manga">
-                <img src="../img/prizrak.jpg" alt="Привид в обладунках">
+            <div class="manga scale">
+                <img src="../img/prizrak.jpg" alt="Привид в обладунках" class="scale">
                 <figcaption>Кадр з аніме-фільму</figcaption>
             </div>
             <p>
@@ -467,8 +600,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.0
             </div>
-            <div class="manga">
-                <img src="../img/wolf.jpg" alt="wolf">
+            <div class="manga scale">
+                <img src="../img/wolf.jpg" alt="wolf" class="scale">
                 <figcaption>Кадр з аніме-фільму</figcaption>
             </div>
             <p>
@@ -512,8 +645,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 7.8
             </div>
-            <div class="manga">
-                <img src="../img/veter.jpg" alt="veter">
+            <div class="manga scale">
+                <img src="../img/veter.jpg" alt="veter" class="scale">
                 <figcaption>Постер до аніме-фільму</figcaption>
             </div>
             <p>
@@ -559,8 +692,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 9.0
             </div>
-            <div class="manga">
-                <img src="../img/deat.jpg" alt="death">
+            <div class="manga scale">
+                <img src="../img/deat.jpg" alt="death" class="scale">
             </div>
             <p>
                 Це японський 37-серійний телесеріал, заснований на однойменній манзі Цугуми Обидва і Такесі Обати. У центрі історії
@@ -589,8 +722,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 7.7
             </div>
-            <div class="manga">
-                <img src="../img/moon.jpg" alt="moon">
+            <div class="manga scale">
+                <img src="../img/moon.jpg" alt="moon" class="scale">
             </div>
             <p>
                 Цей 200-серійний серіал більше, ніж сума його і без того фантастичних частин, з чудовою анімацією, надихає історією
@@ -620,8 +753,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 7.8
             </div>
-            <div class="manga">
-                <img src="../img/dark.jpg" alt="dark">
+            <div class="manga scale">
+                <img src="../img/dark.jpg" alt="dark" class="scale">
             </div>
             <p>
                 Це ідеальна комбінація детектива, драми і комедії, яка до того ж відрізняється непередбачуваними поворотами, і
@@ -647,8 +780,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.5
             </div>
-            <div class="manga">
-                <img src="../img/drakon.jpg" alt="drakon">
+            <div class="manga scale">
+                <img src="../img/drakon.jpg" alt="drakon" class="scale">
             </div>
             <p>
                 Сюжет серіалу не назвеш глибоким, так як він в основному обертається навколо майстра бойових мистецтв Гоку і його
@@ -673,8 +806,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.3
             </div>
-            <div class="manga">
-                <img src="../img/naruto.jpg" alt="naruto">
+            <div class="manga scale">
+                <img src="../img/naruto.jpg" alt="naruto" class="scale">
             </div>
             <p>
                 Багаторічний аніме-серіал «Наруто» став культовим через свою шаленої популярності у всьому світі, і не дарма. Він
@@ -703,8 +836,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.3
             </div>
-            <div class="manga">
-                <img src="../img/akademiaj.jpg" alt="akademiaj">
+            <div class="manga scale">
+                <img src="../img/akademiaj.jpg" alt="akademiaj" class="scale">
             </div>
             <p>
                 Історій про супергероїв - хоч греблю гати, але «Моя геройська академія» пропонує унікальний поворот в знайомому
@@ -731,8 +864,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.7
             </div>
-            <div class="manga">
-                <img src="../img/van-pis.jpg" alt="van-pis">
+            <div class="manga scale">
+                <img src="../img/van-pis.jpg" alt="van-pis" class="scale">
             </div>
             <p>
                 Є причина, по якій «Ван Піс» стабільно тримається в топ кращих аніме-серіалів з 1999 року і породив всілякі
@@ -765,8 +898,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 9.1
             </div>
-            <div class="manga">
-                <img src="../img/alhimik.jpg" alt="alhimik">
+            <div class="manga scale">
+                <img src="../img/alhimik.jpg" alt="alhimik" class="scale">
             </div>
             <p>
                 Складне побудова світу з уравновешиванием запам'ятовуються персонажів, знакових моментів і захоплюючих боїв - то, що
@@ -793,8 +926,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 7.6
             </div>
-            <div class="manga">
-                <img src="../img/pokemon.png" alt="pokemon">
+            <div class="manga scale">
+                <img src="../img/pokemon.png" alt="pokemon" class="scale">
             </div>
             <p>
                 Можливо, ви давно переросли це аніме, але не можна заперечувати його вплив на аніме-індустрію і масову культуру в
@@ -821,8 +954,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.7
             </div>
-            <div class="manga">
-                <img src="../img/demon_slayer.jpg" alt="pokemon">
+            <div class="manga scale">
+                <img src="../img/demon_slayer.jpg" alt="pokemon" class="scale">
             </div>
             <p>
                 Це нове аніме, що з'явилося в 2019 році, вже встигло увійти в історію кращих аніме-серіалів завдяки дивного якості
@@ -853,8 +986,8 @@
                 <br>
                 <b><i>IMDb:</i></b> 8.8
             </div>
-            <div class="manga">
-                <img src="../img/titan.jpg" alt="titan">
+            <div class="manga scale">
+                <img src="../img/titan.jpg" alt="titan" class="scale">
             </div>
             <p>
                 Заснований на однойменній манзі, створеної Хадзіме Исаямою, серіал поєднує в собі бойовик, фантастику і
@@ -886,6 +1019,7 @@
         </a>
     </main>
     <script src="../js/script.js"></script>
+    <script src="../js/script2.js"></script>
     <footer>
         <div class="container">&#169; Nikita Zhuravel, Lviv 2021</div>
     </footer>
